@@ -36,6 +36,46 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -96,21 +136,73 @@
 
 This is a short tutorial explaining how to download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS).
 
-The code is available in \href{https://github.com/Fundacion-AZTI/gam-niche}{AZTI's github repository} and the book is readily available \href{https://fundacion-azti.github.io/gam-niche/}{here}.This work is licensed under a \href{https://creativecommons.org/licenses/by-nc-sa/4.0/}{Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)}
+The code is available in \href{https://github.com/Fundacion-AZTI/CMEMSdata}{AZTI's github repository} and the book is readily available \href{https://fundacion-azti.github.io/CMEMSdata/}{here}.This work is licensed under a \href{https://creativecommons.org/licenses/by-nc-sa/4.0/}{Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)}
 
 To cite this book, please use:
 
-Valle, M., Citores, L., Ibaibarriaga, L., Chust, C. (2023) GAM-NICHE: Shape-Constrained GAMs to build Species Distribution Models under the ecological niche theory. AZTI. \url{https://doi.org/10.57762/fzpy-6w51}
+XX
 
 \chapter{Introduction}\label{introduction}
 
-Species Distribution Models (SDMs) are numerical tools that combine observations of species occurrence or abundance at known locations with information on the environmental and/or spatial characteristics of those locations \citep{elith_etal_2009}. SDMs are widely used as a tool for understanding species spatial ecology and are also known as ecological niche models (ENM) or habitat suitability models.
+The Copernicus Marine Environment Monitoring Service (CMEMS) provides a wide range of data products for the global ocean. The data is available through the CMEMS website, but can also be accessed programmatically using the CMEMS API.
 
-According to ecological niche theory, species response curves are unimodal with respect to environmental gradients \citep{hutchinson_1957}. While a variety of statistical methods have been developed for species distribution modelling, a general problem with most of these habitat modelling approaches is that the estimated response curves can display biologically implausible shapes which do not respect ecological niche theory. This is because species response curves are fit statistically with any assumption or restriction, which sometimes do not respect the ecological niche theory. To better understand species response to environmental changes, SDMs should consider theoretical background such as the ecological niche theory and pursue the unimodality of the response curves with respect to environmental gradients.
+The Copernicus Marine Toolbox is a free and easy-to-use tool that interoperates with the Copernicus Marine Data Store intending to cover any use case, from retrieval of metadata to a complete dataset, or just a subset, for any type of product: numerical models, satellite and/or in situ observations. It is written in Python, but
 
-This book provides a tutorial on how to use Shape-Constrained Generalized Additive Models (SC-GAMs) \citep{pya_etal_2015} to build SDMs under the ecological niche theory framework \citep{citores_etal_2020}. SC-GAMs impose monotonicity and concavity constraints in the linear predictor of the GAMs and avoid overfitting. SC-GAM is an effective alternative to fitting nonsymmetric parametric response curves, while retaining the unimodality constraint, required by ecological niche theory, for direct variables and limiting factors.
+All the data available are in NetCDF format. We provide examples of how to read and work with these files and merge them with other data sources.
 
-The book is organised following the key steps in good modelling practice of SDMs \citep{elith_etal_2009}. First, presence data of a selected species are downloaded from GBIF/OBIS global public datasets and pseudo-absence data are created. Then, environmental data are downloaded from public repositories and extracted at each of the presence/pseudo-absence data points. Based on this dataset, an exploratory analysis is conducted to help deciding on the best modelling approach. The model is fitted to the dataset and the quality of the fit and the realism of the fitted response function are evaluated. After selecting a threshold to transform the continuous probability predictions into binary responses, the model is validated using a k-fold approach. Finally, the predicted maps are generated for visualization.
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=17.78in]{images/diagram_CMEMSdata}
+
+\chapter{Download}\label{download}
+
+The Copernicus Marine Toolbox is written in Python, but it can be used in R through the \texttt{reticulate} package. For more information on how to use the Copernicus Marine Toolbox in R, see the \href{https://help.marine.copernicus.eu/en/articles/8638253-how-to-download-data-via-the-copernicus-marine-toolbox-in-r}{official documentation}.
+
+\section{Installation}\label{installation}
+
+First, we need to install the \texttt{reticulate} package:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"reticulate"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Then, the package can be loaded:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(}\StringTok{"reticulate"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Now we create a dedicated Python virtual environment for the Copernicus Marine Toolbox. Using a separate environment ensures a clean, isolated space where the package and its dependencies won't interfere with other projects. The virtual environment has been created in
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{virtualenv\_create}\NormalTok{(}\AttributeTok{envname =} \StringTok{"CopernicusMarine"}\NormalTok{)}
+
+\FunctionTok{virtualenv\_install}\NormalTok{(}\StringTok{"CopernicusMarine"}\NormalTok{, }\AttributeTok{packages =} \FunctionTok{c}\NormalTok{(}\StringTok{"copernicusmarine"}\NormalTok{))}
+
+\FunctionTok{use\_virtualenv}\NormalTok{(}\StringTok{"CopernicusMarine"}\NormalTok{, }\AttributeTok{required =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\chapter{See structure of NetCDF files}\label{see-structure-of-netcdf-files}
+
+Write here a brief intro
+
+\chapter{Read and work with NetCDF files}\label{read-and-work-with-netcdf-files}
+
+Write here a brief intro
+
+\chapter{Extract the information from the NetCDF files}\label{extract-the-information-from-the-netcdf-files}
+
+Write here a brief intro
 
   \bibliography{references.bib}
 

@@ -1,0 +1,13 @@
+<!-- 
+This file is part of a gitbook that should be cited as: 
+
+XX
+
+This tutorial has been supported by the XX project
+-->
+
+# See structure of NetCDF files
+
+Write here a brief intro   
+
+

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)</title>
+  <title>Chapter 2 Download | Download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)</title>
   <meta name="description" content="This is a short tutorial explaining how to download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)." />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)" />
+  <meta property="og:title" content="Chapter 2 Download | Download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is a short tutorial explaining how to download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)." />
   <meta name="github-repo" content="Fundacion-AZTI/gam-niche" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)" />
+  <meta name="twitter:title" content="Chapter 2 Download | Download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)" />
   
   <meta name="twitter:description" content="This is a short tutorial explaining how to download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="see-structure-of-netcdf-files.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -169,19 +169,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="download" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Download<a href="download.html#download" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The Copernicus Marine Toolbox is written in Python, but it can be used in R through the <code>reticulate</code> package. For more information on how to use the Copernicus Marine Toolbox in R, see the <a href="https://help.marine.copernicus.eu/en/articles/8638253-how-to-download-data-via-the-copernicus-marine-toolbox-in-r">official documentation</a>.</p>
+<div id="installation" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Installation<a href="download.html#installation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>First, we need to install the <code>reticulate</code> package:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="download.html#cb2-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;reticulate&quot;</span>)</span></code></pre></div>
+<p>Then, the package can be loaded:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="download.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;reticulate&quot;</span>)</span></code></pre></div>
+<p>Now we create a dedicated Python virtual environment for the Copernicus Marine Toolbox. Using a separate environment ensures a clean, isolated space where the package and its dependencies won’t interfere with other projects. The virtual environment has been created in</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="download.html#cb4-1" tabindex="-1"></a><span class="fu">virtualenv_create</span>(<span class="at">envname =</span> <span class="st">&quot;CopernicusMarine&quot;</span>)</span>
+<span id="cb4-2"><a href="download.html#cb4-2" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="download.html#cb4-3" tabindex="-1"></a><span class="fu">virtualenv_install</span>(<span class="st">&quot;CopernicusMarine&quot;</span>, <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">&quot;copernicusmarine&quot;</span>))</span>
+<span id="cb4-4"><a href="download.html#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="download.html#cb4-5" tabindex="-1"></a><span class="fu">use_virtualenv</span>(<span class="st">&quot;CopernicusMarine&quot;</span>, <span class="at">required =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+
+<!-- 
+This file is part of a gitbook that should be cited as: 
+
+XX
+
+This tutorial has been supported by the XX project
+-->
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="see-structure-of-netcdf-files.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -212,7 +231,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/Fundacion-AZTI/CMEMSdata/edit/master/%s",
+"link": "https://github.com/Fundacion-AZTI/CMEMSdata/edit/master/02-download.Rmd",
 "text": "Edit"
 },
 "history": {

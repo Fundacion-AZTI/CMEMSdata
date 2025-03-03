@@ -1,0 +1,38 @@
+<!-- 
+This file is part of a gitbook that should be cited as: 
+
+XX
+
+This tutorial has been supported by the XX project
+-->
+
+# Download
+
+The Copernicus Marine Toolbox is written in Python, but it can be used in R through the `reticulate` package. For more information on how to use the Copernicus Marine Toolbox in R, see the [official documentation](https://help.marine.copernicus.eu/en/articles/8638253-how-to-download-data-via-the-copernicus-marine-toolbox-in-r).
+
+## Installation
+
+First, we need to install the `reticulate` package:
+
+```{r, eval=F}
+install.packages("reticulate") 
+```
+
+Then, the package can be loaded:
+
+```{r, eval=F}
+library("reticulate")
+```
+
+Now we create a dedicated Python virtual environment for the Copernicus Marine Toolbox. Using a separate environment ensures a clean, isolated space where the package and its dependencies won’t interfere with other projects. The virtual environment has been created in 
+
+```{r, eval=F}
+virtualenv_create(envname = "CopernicusMarine")
+
+virtualenv_install("CopernicusMarine", packages = c("copernicusmarine"))
+
+use_virtualenv("CopernicusMarine", required = TRUE)
+```
+
+
+
