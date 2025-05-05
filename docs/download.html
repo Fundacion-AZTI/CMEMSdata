@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Download | Download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)</title>
   <meta name="description" content="This is a short tutorial explaining how to download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)." />
-  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Download | Download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="AZTI" />
 
 
-<meta name="date" content="2025-03-03" />
+<meta name="date" content="2025-05-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -144,7 +144,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="download.html"><a href="download.html"><i class="fa fa-check"></i><b>2</b> Download</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="download.html"><a href="download.html#installation"><i class="fa fa-check"></i><b>2.1</b> Installation</a></li>
+<li class="chapter" data-level="2.1" data-path="download.html"><a href="download.html#register"><i class="fa fa-check"></i><b>2.1</b> Register</a></li>
+<li class="chapter" data-level="2.2" data-path="download.html"><a href="download.html#installation"><i class="fa fa-check"></i><b>2.2</b> Installation</a></li>
+<li class="chapter" data-level="2.3" data-path="download.html"><a href="download.html#set-up-the-python-environment"><i class="fa fa-check"></i><b>2.3</b> Set up the Python environment</a></li>
+<li class="chapter" data-level="2.4" data-path="download.html"><a href="download.html#explore-the-marine-copernicus-data-store"><i class="fa fa-check"></i><b>2.4</b> Explore the Marine Copernicus Data Store</a></li>
+<li class="chapter" data-level="2.5" data-path="download.html"><a href="download.html#download-the-data-single-file"><i class="fa fa-check"></i><b>2.5</b> Download the data (single file)</a></li>
+<li class="chapter" data-level="2.6" data-path="download.html"><a href="download.html#download-the-data-multiple-files"><i class="fa fa-check"></i><b>2.6</b> Download the data (multiple files)</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="see-structure-of-netcdf-files.html"><a href="see-structure-of-netcdf-files.html"><i class="fa fa-check"></i><b>3</b> See structure of NetCDF files</a></li>
 <li class="chapter" data-level="4" data-path="read-and-work-with-netcdf-files.html"><a href="read-and-work-with-netcdf-files.html"><i class="fa fa-check"></i><b>4</b> Read and work with NetCDF files</a></li>
@@ -171,19 +176,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="download" class="section level1 hasAnchor" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Download<a href="download.html#download" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>The Copernicus Marine Toolbox is written in Python, but it can be used in R through the <code>reticulate</code> package. For more information on how to use the Copernicus Marine Toolbox in R, see the <a href="https://help.marine.copernicus.eu/en/articles/8638253-how-to-download-data-via-the-copernicus-marine-toolbox-in-r">official documentation</a>.</p>
-<div id="installation" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Installation<a href="download.html#installation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>First, we need to install the <code>reticulate</code> package:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="download.html#cb2-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;reticulate&quot;</span>)</span></code></pre></div>
-<p>Then, the package can be loaded:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="download.html#cb3-1" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;reticulate&quot;</span>)</span></code></pre></div>
-<p>Now we create a dedicated Python virtual environment for the Copernicus Marine Toolbox. Using a separate environment ensures a clean, isolated space where the package and its dependencies won’t interfere with other projects. The virtual environment has been created in</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="download.html#cb4-1" tabindex="-1"></a><span class="fu">virtualenv_create</span>(<span class="at">envname =</span> <span class="st">&quot;CopernicusMarine&quot;</span>)</span>
-<span id="cb4-2"><a href="download.html#cb4-2" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="download.html#cb4-3" tabindex="-1"></a><span class="fu">virtualenv_install</span>(<span class="st">&quot;CopernicusMarine&quot;</span>, <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">&quot;copernicusmarine&quot;</span>))</span>
-<span id="cb4-4"><a href="download.html#cb4-4" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="download.html#cb4-5" tabindex="-1"></a><span class="fu">use_virtualenv</span>(<span class="st">&quot;CopernicusMarine&quot;</span>, <span class="at">required =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>The Copernicus Marine Toolbox is originally written in Python. There is also a new R package aimed to download and import data into R without the need of external software (see the <a href="https://github.com/pepijn-devries/CopernicusMarine">CopernicusMarine R package</a>); however, at the moment we write this tutorial, this R package is still in development and several features need to be added. For that reason, we are going to use the <code>reticulate</code> R package, which provides an interface to Python modules, classes, and functions from R.</p>
+<p>For more information on how to use the Copernicus Marine Toolbox in R, see the <a href="https://help.marine.copernicus.eu/en/articles/8638253-how-to-download-data-via-the-copernicus-marine-toolbox-in-r">official documentation</a>.</p>
+<div id="register" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Register<a href="download.html#register" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You need to register in the Copernicus Marine Service to get access to the data. You can register <a href="https://marine.copernicus.eu/">here</a>. You must remember your username and password!</p>
+<p>Of course, you can ignore this step in case you already have an account.</p>
+</div>
+<div id="installation" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Installation<a href="download.html#installation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Install the <code>reticulate</code> package and then load the package:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="download.html#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;reticulate&quot;</span>) </span>
+<span id="cb1-2"><a href="download.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;reticulate&quot;</span>)</span></code></pre></div>
+<p>The next step is to install Phyton (in case you do not have it). This can be easily done by running the following line (it may take a few minutes):</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="download.html#cb2-1" tabindex="-1"></a>reticulate<span class="sc">::</span><span class="fu">install_python</span>()</span></code></pre></div>
+</div>
+<div id="set-up-the-python-environment" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Set up the Python environment<a href="download.html#set-up-the-python-environment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now we create a dedicated Python virtual environment for the Copernicus Marine Toolbox. Using a separate environment ensures a clean, isolated space where the package and its dependencies will not interfere with other projects.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="download.html#cb3-1" tabindex="-1"></a>entorno <span class="ot">=</span> <span class="st">&quot;DownloadCopernicus&quot;</span></span>
+<span id="cb3-2"><a href="download.html#cb3-2" tabindex="-1"></a><span class="fu">virtualenv_create</span>(<span class="at">envname =</span> entorno)</span>
+<span id="cb3-3"><a href="download.html#cb3-3" tabindex="-1"></a><span class="fu">virtualenv_install</span>(entorno, <span class="at">packages =</span> <span class="fu">c</span>(<span class="st">&quot;copernicusmarine&quot;</span>))</span>
+<span id="cb3-4"><a href="download.html#cb3-4" tabindex="-1"></a><span class="fu">use_virtualenv</span>(entorno, <span class="at">required =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Then, we store the <code>copernicusmarine</code> package in a variable to use the toolbox’s various functions:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="download.html#cb4-1" tabindex="-1"></a>atributos_cms <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="at">module =</span> <span class="st">&quot;copernicusmarine&quot;</span>)</span></code></pre></div>
+<p>We also need to provide the username and password of our account created in the first step. This should be only done if you have never used the toolbox before and never entered your login details:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="download.html#cb5-1" tabindex="-1"></a>atributos_cms<span class="sc">$</span><span class="fu">login</span>(<span class="st">&quot;username&quot;</span>, <span class="st">&quot;password&quot;</span>)</span></code></pre></div>
+</div>
+<div id="explore-the-marine-copernicus-data-store" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Explore the Marine Copernicus Data Store<a href="download.html#explore-the-marine-copernicus-data-store" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We highly recommend exploring the <a href="https://data.marine.copernicus.eu/products">Marine Copernicus Data Store</a>. Each product has a manual with all the needed information. You must be particularly familiar with the temporal and spatial range and resolution of the chosen dataset, the dataset ID, and the variable names.</p>
+</div>
+<div id="download-the-data-single-file" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Download the data (single file)<a href="download.html#download-the-data-single-file" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Here, you are going to download the oceanographic data from the CMEMS. This data will be saved to a netCDF file in a specified directory. We provide an example:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="download.html#cb6-1" tabindex="-1"></a>atributos_cms<span class="sc">$</span><span class="fu">subset</span>(</span>
+<span id="cb6-2"><a href="download.html#cb6-2" tabindex="-1"></a>    <span class="at">dataset_id        =</span> <span class="st">&quot;cmems_mod_glo_phy_my_0.083deg_P1D-m&quot;</span>,</span>
+<span id="cb6-3"><a href="download.html#cb6-3" tabindex="-1"></a>    <span class="at">variables         =</span> <span class="fu">list</span>(<span class="st">&quot;thetao&quot;</span>),</span>
+<span id="cb6-4"><a href="download.html#cb6-4" tabindex="-1"></a>    <span class="at">minimum_longitude =</span> <span class="sc">-</span><span class="dv">83</span>,</span>
+<span id="cb6-5"><a href="download.html#cb6-5" tabindex="-1"></a>    <span class="at">maximum_longitude =</span> <span class="sc">-</span><span class="dv">69</span>,</span>
+<span id="cb6-6"><a href="download.html#cb6-6" tabindex="-1"></a>    <span class="at">minimum_latitude  =</span> <span class="sc">-</span><span class="dv">19</span>,</span>
+<span id="cb6-7"><a href="download.html#cb6-7" tabindex="-1"></a>    <span class="at">maximum_latitude  =</span> <span class="sc">-</span><span class="dv">3</span>,</span>
+<span id="cb6-8"><a href="download.html#cb6-8" tabindex="-1"></a>    <span class="at">start_datetime    =</span> <span class="fu">format</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">&quot;2015-02-01&quot;</span>), <span class="at">format =</span> <span class="st">&quot;%Y-%m-%dT00:00:00&quot;</span>),</span>
+<span id="cb6-9"><a href="download.html#cb6-9" tabindex="-1"></a>    <span class="at">end_datetime      =</span> <span class="fu">format</span>(<span class="at">x =</span> <span class="fu">as.Date</span>(<span class="st">&quot;2015-04-30&quot;</span>), <span class="at">format =</span> <span class="st">&quot;%Y-%m-%dT00:00:00&quot;</span>),</span>
+<span id="cb6-10"><a href="download.html#cb6-10" tabindex="-1"></a>    <span class="at">minimum_depth     =</span> <span class="dv">0</span>,</span>
+<span id="cb6-11"><a href="download.html#cb6-11" tabindex="-1"></a>    <span class="at">maximum_depth     =</span> <span class="dv">200</span>,</span>
+<span id="cb6-12"><a href="download.html#cb6-12" tabindex="-1"></a>    <span class="at">output_directory  =</span> <span class="st">&quot;C:/Use/&quot;</span></span>
+<span id="cb6-13"><a href="download.html#cb6-13" tabindex="-1"></a>    )</span></code></pre></div>
+<p>In this example, we are downloading daily data from the <a href="https://data.marine.copernicus.eu/product/GLOBAL_MULTIYEAR_PHY_001_030/description">GLORYS12V1 product</a>. The variable is potential temperature (<code>thetao</code>), the spatial extent is between -83 and -69 degrees longitude and between -19 and -3 degrees latitude, and the temporal extent is between 2015-02-01 and 2015-04-30. The data (<code>.nc</code> file) will be saved in the specified directory. We also specify the depth range (0-200 m), although that can be omitted in case we want to download all the depth layers.</p>
+</div>
+<div id="download-the-data-multiple-files" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Download the data (multiple files)<a href="download.html#download-the-data-multiple-files" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In case you want to download multiple files, you can adapt the previous example to work in a loop. We have done that in a wrapper function called <code>downloadCOPERNICUS</code> (you can find it <a href="https://github.com/GiancarloMCorrea/extractOceanVariables/blob/main/code/copernicus/multiple/downloadCOPERNICUS.R">here</a>):</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="download.html#cb7-1" tabindex="-1"></a><span class="fu">downloadCOPERNICUS</span>(</span>
+<span id="cb7-2"><a href="download.html#cb7-2" tabindex="-1"></a>    <span class="at">xlim        =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">83</span>, <span class="sc">-</span><span class="dv">69</span>),</span>
+<span id="cb7-3"><a href="download.html#cb7-3" tabindex="-1"></a>    <span class="at">ylim        =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">19</span>, <span class="sc">-</span><span class="dv">3</span>),</span>
+<span id="cb7-4"><a href="download.html#cb7-4" tabindex="-1"></a>    <span class="at">datelim     =</span> <span class="fu">c</span>(<span class="st">&quot;2015-02-01&quot;</span>, <span class="st">&quot;2015-04-30&quot;</span>),</span>
+<span id="cb7-5"><a href="download.html#cb7-5" tabindex="-1"></a>    <span class="at">depthlim    =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">200</span>),</span>
+<span id="cb7-6"><a href="download.html#cb7-6" tabindex="-1"></a>    <span class="at">field       =</span> <span class="st">&quot;thetao&quot;</span>,</span>
+<span id="cb7-7"><a href="download.html#cb7-7" tabindex="-1"></a>    <span class="at">dataid      =</span> <span class="st">&quot;cmems_mod_glo_phy_my_0.083deg_P1D-m&quot;</span>,</span>
+<span id="cb7-8"><a href="download.html#cb7-8" tabindex="-1"></a>    <span class="at">saveEnvDir  =</span> <span class="st">&quot;C:/Use/&quot;</span></span>
+<span id="cb7-9"><a href="download.html#cb7-9" tabindex="-1"></a>    )</span></code></pre></div>
+<p>This function will download the oceanographic data and save it in several <code>.nc</code> files. For the example above, three <code>.nc</code> files will be created:</p>
+<ul>
+<li><code>2015-02-01_2015-02-28.nc</code></li>
+<li><code>2015-03-01_2015-03-31.nc</code></li>
+<li><code>2015-04-01_2015-04-30.nc</code></li>
+</ul>
+<p>As you may see, each <code>.nc</code> file will contain the data for a specific month. Note that the information contained in each netCDF file may have several time layers (e.g., daily temporal resolution) or a single time layer (e.g., monthly temporal resolution).</p>
 
 <!-- 
 This file is part of a gitbook that should be cited as: 
@@ -214,42 +274,42 @@ This tutorial has been supported by the XX project
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/Fundacion-AZTI/CMEMSdata/edit/master/02-download.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["_main.pdf", "_main.epub"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/Fundacion-AZTI/CMEMSdata/edit/master/02-download.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

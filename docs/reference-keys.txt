@@ -1,0 +1,16 @@
+introduction
+download
+installation
+see-structure-of-netcdf-files
+read-and-work-with-netcdf-files
+extract-the-information-from-the-netcdf-files
+register
+set-up-the-python-environment
+explore-the-marine-copernicus-data-store
+download-the-data-single-file
+download-the-data-multiple-files
+sec-2-data-multiple
+read-your-observations
+extract-oceanographic-data
+plot-the-extracted-oceanographic-information
+imputating-missing-information

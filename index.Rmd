@@ -1,15 +1,15 @@
 --- 
-title: "Download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)"
+title: Download and prepare data from the Copernicus Marine Environment Monitoring
+  Service (CMEMS)
 author: "AZTI"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
-bibliography:
-- references.bib
+bibliography: references.bib
 description: |
   This is a short tutorial explaining how to download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS).
-link-citations: yes
-github-repo: Fundacion-AZTI/gam-niche
+link-citations: true
+github-repo: "Fundacion-AZTI/gam-niche"
 ---
 
 
@@ -34,7 +34,7 @@ title.innerHTML = '<img src="images/diagram_CMEMSdata.jpg" alt="Test Image">' + 
 ```
 
 <!-- the code below is avoid too long lines in the outcome -->
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(knitr)
 # Set so that long lines in R will be wrapped:
 opts_chunk$set(tidy.opts=list(width.cutoff=40), tidy=TRUE)

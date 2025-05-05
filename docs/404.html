@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Page not found | Download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)</title>
   <meta name="description" content="This is a short tutorial explaining how to download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)." />
-  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Page not found | Download and prepare data from the Copernicus Marine Environment Monitoring Service (CMEMS)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="AZTI" />
 
 
-<meta name="date" content="2025-03-03" />
+<meta name="date" content="2025-05-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -144,11 +144,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="download.html"><a href="download.html"><i class="fa fa-check"></i><b>2</b> Download</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="download.html"><a href="download.html#installation"><i class="fa fa-check"></i><b>2.1</b> Installation</a></li>
+<li class="chapter" data-level="2.1" data-path="download.html"><a href="download.html#register"><i class="fa fa-check"></i><b>2.1</b> Register</a></li>
+<li class="chapter" data-level="2.2" data-path="download.html"><a href="download.html#installation"><i class="fa fa-check"></i><b>2.2</b> Installation</a></li>
+<li class="chapter" data-level="2.3" data-path="download.html"><a href="download.html#set-up-the-python-environment"><i class="fa fa-check"></i><b>2.3</b> Set up the Python environment</a></li>
+<li class="chapter" data-level="2.4" data-path="download.html"><a href="download.html#explore-the-marine-copernicus-data-store"><i class="fa fa-check"></i><b>2.4</b> Explore the Marine Copernicus Data Store</a></li>
+<li class="chapter" data-level="2.5" data-path="download.html"><a href="download.html#download-the-data-single-file"><i class="fa fa-check"></i><b>2.5</b> Download the data (single file)</a></li>
+<li class="chapter" data-level="2.6" data-path="download.html"><a href="download.html#sec-2-data-multiple"><i class="fa fa-check"></i><b>2.6</b> Download the data (multiple files)</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="see-structure-of-netcdf-files.html"><a href="see-structure-of-netcdf-files.html"><i class="fa fa-check"></i><b>3</b> See structure of NetCDF files</a></li>
 <li class="chapter" data-level="4" data-path="read-and-work-with-netcdf-files.html"><a href="read-and-work-with-netcdf-files.html"><i class="fa fa-check"></i><b>4</b> Read and work with NetCDF files</a></li>
-<li class="chapter" data-level="5" data-path="extract-the-information-from-the-netcdf-files.html"><a href="extract-the-information-from-the-netcdf-files.html"><i class="fa fa-check"></i><b>5</b> Extract the information from the NetCDF files</a></li>
+<li class="chapter" data-level="5" data-path="extract-the-information-from-the-netcdf-files.html"><a href="extract-the-information-from-the-netcdf-files.html"><i class="fa fa-check"></i><b>5</b> Extract the information from the netCDF files</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="extract-the-information-from-the-netcdf-files.html"><a href="extract-the-information-from-the-netcdf-files.html#read-your-observations"><i class="fa fa-check"></i><b>5.1</b> Read your observations</a></li>
+<li class="chapter" data-level="5.2" data-path="extract-the-information-from-the-netcdf-files.html"><a href="extract-the-information-from-the-netcdf-files.html#extract-oceanographic-data"><i class="fa fa-check"></i><b>5.2</b> Extract oceanographic data</a></li>
+<li class="chapter" data-level="5.3" data-path="extract-the-information-from-the-netcdf-files.html"><a href="extract-the-information-from-the-netcdf-files.html#plot-the-extracted-oceanographic-information"><i class="fa fa-check"></i><b>5.3</b> Plot the extracted oceanographic information</a></li>
+<li class="chapter" data-level="5.4" data-path="extract-the-information-from-the-netcdf-files.html"><a href="extract-the-information-from-the-netcdf-files.html#imputating-missing-information"><i class="fa fa-check"></i><b>5.4</b> Imputating missing information</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -195,42 +206,42 @@ the table of contents to find the page you are looking for.</p>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/Fundacion-AZTI/CMEMSdata/edit/master/%s",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["_main.pdf", "_main.epub"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/Fundacion-AZTI/CMEMSdata/edit/master/%s",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>
