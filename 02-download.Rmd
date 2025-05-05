@@ -27,7 +27,7 @@ install.packages("reticulate")
 library("reticulate")
 ```
 
-The next step is to install Phyton (in case you do not have it). This can be easily done by running the following line (it may take a few minutes):
+The next step is to install Phyton (in case you do not have it). This should be only done once. This can be easily done by running the following line (it may take a few minutes):
 
 ```{r, eval=F}
 reticulate::install_python()
@@ -76,7 +76,7 @@ atributos_cms$subset(
     end_datetime      = format(x = as.Date("2015-04-30"), format = "%Y-%m-%dT00:00:00"),
     minimum_depth     = 0,
     maximum_depth     = 200,
-    output_directory  = "C:/Use/"
+    output_directory  = "C:/Use/env_data/"
     )
 ```
 
@@ -87,6 +87,10 @@ In this example, we are downloading daily data from the [GLORYS12V1 product](htt
 In case you want to download the data and save it in multiple files, you can adapt the previous example to work in a loop. We have done that in a wrapper function called `downloadCOPERNICUS` (you can find it [here](https://github.com/GiancarloMCorrea/extractOceanVariables/blob/main/code/copernicus/multiple/downloadCOPERNICUS.R)):
 
 ```{r, eval=F}
+# Load function directly from Github:
+source("https://raw.githubusercontent.com/GiancarloMCorrea/extractOceanVariables/refs/heads/main/code/copernicus/multiple/downloadCOPERNICUS.R")
+
+# Download the data:
 downloadCOPERNICUS(
     xlim        = c(-83, -69),
     ylim        = c(-19, -3),
@@ -94,7 +98,7 @@ downloadCOPERNICUS(
     depthlim    = c(0, 200),
     field       = "thetao",
     dataid      = "cmems_mod_glo_phy_my_0.083deg_P1D-m",
-    savedir     = "C:/Use"
+    savedir     = "C:/Use/env_data/"
     )
 ```
 

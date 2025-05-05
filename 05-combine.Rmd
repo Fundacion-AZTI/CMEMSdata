@@ -12,10 +12,12 @@ Once you have downloaded the oceanographic data, you will probably want to extra
 
 ## Read your observations
 
-Let's assume you have your observations saved as a CSV file. The first step is to read the CSV file:
+Let's assume you have your observations saved as a CSV file. We are going to use [this dataset](https://github.com/GiancarloMCorrea/extractOceanVariables/blob/main/data/example_data.csv) as example. The first step is to read the CSV file:
 
-```{r, eval=F}
-my_data = read.csv(file = "example_data.csv") 
+```{r, message=F, warning=F, eval=T}
+require(readr)
+my_data = read_delim("https://raw.githubusercontent.com/GiancarloMCorrea/extractOceanVariables/refs/heads/main/data/example_data.csv", delim=";")
+head(my_data)
 ```
 
 This dataset may have several columns, but it should have at least three columns with the following information: longitude (numeric), latitude (numeric), and date (character, `%Y-%m-%d`). There should not be missing information (i.e., `NA`) for these three columns.
@@ -27,12 +29,16 @@ To extract the oceanographic data, we will use the `matchCOPERNICUS` function (y
 `matchCOPERNICUS` creates a new column in your observations dataframe (e.g., `my_data`) with the oceanographic variable that corresponds to the longitude/latitude/date combination of every row.
 
 ```{r, eval=F}
+# Load function directly from Github:
+source("https://raw.githubusercontent.com/GiancarloMCorrea/extractOceanVariables/refs/heads/main/code/copernicus/multiple/matchCOPERNICUS.R")
+
+# Extract oceanographic data:
 matchCOPERNICUS(
     data         = my_data,
     lonlat_cols  = c("Lon_M", "Lat_M"),
     date_col     = "Date",
     var_label    = "sst",
-    var_path     = "C:/Use",
+    var_path     = "C:/Use/env_data/",
     depth_FUN    = "mean",
     depth_range  = c(0, 50)
     )
@@ -83,7 +89,7 @@ MyPoints = data %>% st_as_sf(coords = lonlat_cols, crs = 4326, remove = FALSE)
 worldmap = ggplot2::map_data("world")
 colnames(worldmap) = c("X", "Y", "PID", "POS", "region", "subregion")
 # Make plot:
-p1 = ggplot() +
+ggplot() +
   geom_sf(data = MyPoints, aes(color = sst), size = 0.5) +
   scale_colour_viridis() +
   geom_polygon(data = worldmap, aes(X, Y, group=PID), fill = "gray60", color=NA) +
@@ -93,7 +99,7 @@ p1 = ggplot() +
   facet_wrap(~ month)
 ```
 
-## Imputating missing information
+## Imputation of missing information
 
 In some cases, there may be `NA` when extracting the oceanographic data. We could fill these `NA` using the mean value around the location with missing information. We have made an R function, called `fill_NAvals` to do so (you can find it [here](https://github.com/GiancarloMCorrea/extractOceanVariables/blob/main/code/auxFunctions.R)). 
 
