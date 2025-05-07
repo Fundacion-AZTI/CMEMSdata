@@ -26,22 +26,30 @@ This dataset may have several columns, but it should have at least three columns
 
 To extract the oceanographic data, we will use the `matchCOPERNICUS` function (you can find it [here](https://github.com/GiancarloMCorrea/extractOceanVariables/blob/main/code/copernicus/multiple/matchCOPERNICUS.R)). The instructions provided below work when downloading multiple `.nc` files as explained in Section \@ref(sec-2-data-multiple).
 
-`matchCOPERNICUS` creates a new column in your observations dataframe (e.g., `my_data`) with the oceanographic variable that corresponds to the longitude/latitude/date combination of every row.
+`matchCOPERNICUS` creates a new column in your observations dataframe (i.e., `my_data`) with the oceanographic variable that corresponds to the longitude/latitude/date combination of every row.
+
+Before extracting the oceanographic variable, we will load the `matchCOPERNICUS`, required libraries, and some auxiliary functions directly from Github:
 
 ```{r, eval=F}
-# Load function directly from Github:
 source("https://raw.githubusercontent.com/GiancarloMCorrea/extractOceanVariables/refs/heads/main/code/copernicus/multiple/matchCOPERNICUS.R")
+source("https://raw.githubusercontent.com/GiancarloMCorrea/extractOceanVariables/refs/heads/main/code/auxFunctions.R")
+require(dplyr)
+require(lubridate)
+require(stars)
+```
 
-# Extract oceanographic data:
-matchCOPERNICUS(
-    data         = my_data,
-    lonlat_cols  = c("Lon_M", "Lat_M"),
-    date_col     = "Date",
-    var_label    = "sst",
-    var_path     = "C:/Use/env_data/",
-    depth_FUN    = "mean",
-    depth_range  = c(0, 50)
-    )
+Then, we extract the data:
+
+```{r, eval=F}
+my_data = matchCOPERNICUS(
+            data         = my_data,
+            lonlat_cols  = c("Lon_M", "Lat_M"),
+            date_col     = "Date",
+            var_label    = "sst",
+            var_path     = "C:/Use/env_data/",
+            depth_FUN    = "mean",
+            depth_range  = c(0, 25)
+            )
 ```
 
 - `data` is the dataframe with the observations.
@@ -59,18 +67,17 @@ For monthly oceanographic data, `matchCOPERNICUS` will extract the information f
 ```{r, eval=F}
 matchCOPERNICUS(
     ...,
-    nc_dimnames = c("longitude", "latitude", "time")
+    nc_dimnames = c("x", "y", "time")
     )
 ```
 
-Which is a character vector with the longitude, latitude, and date dimension names in the `.nc` files. By default, it is set to `c("longitude", "latitude", "time")`, but you can change it if needed.
+Which is a character vector with the longitude, latitude, and date dimension names in the `.nc` files. By default, it is set to `c("x", "y", "time")`, but you can change it if needed.
 
 ## Plot the extracted oceanographic information
 
 It is always important to plot the extracted environmental variable to check if the matching has been correctly done. First, let's create a new column containing the month for every row:
 
 ```{r, eval=F}
-require(lubridate)
 my_data = my_data %>% mutate(month = floor_date(as.Date(Date, format = "%Y-%m-%d"), "month"))
 ```
 
@@ -84,7 +91,7 @@ require(ggplot2)
 xLim = range(my_data$Lon_M) + 0.5*c(-1, 1)
 yLim = range(my_data$Lat_M) + 0.5*c(-1, 1)
 # Transform our observations to sf point object:
-MyPoints = data %>% st_as_sf(coords = lonlat_cols, crs = 4326, remove = FALSE)
+MyPoints = my_data %>% st_as_sf(coords = c("Lon_M", "Lat_M"), crs = 4326, remove = FALSE)
 # Get worldmap object:
 worldmap = ggplot2::map_data("world")
 colnames(worldmap) = c("X", "Y", "PID", "POS", "region", "subregion")
@@ -99,9 +106,13 @@ ggplot() +
   facet_wrap(~ month)
 ```
 
+```{r, echo=FALSE}
+knitr::include_graphics("images/plot.png")
+```
+
 ## Imputation of missing information
 
-In some cases, there may be `NA` when extracting the oceanographic data. We could fill these `NA` using the mean value around the location with missing information. We have made an R function, called `fill_NAvals` to do so (you can find it [here](https://github.com/GiancarloMCorrea/extractOceanVariables/blob/main/code/auxFunctions.R)). 
+In some cases, there may be `NA` when extracting the oceanographic data. We could fill these `NA` using the mean value around the location with missing information. We have made an R function, called `fill_NAvals` to do so (you can find it [here](https://github.com/GiancarloMCorrea/extractOceanVariables/blob/main/code/auxFunctions.R) and was loaded above). 
 
 ```{r, eval=F}
 my_data = fill_NAvals(
@@ -116,5 +127,5 @@ my_data = fill_NAvals(
 - `data` is the dataframe with the observations.
 - `lonlat_cols` is a character vector with the column names of the longitude and latitude in `data`.
 - `var_col` is a character with the column name of the oceanographic variable in `data`.
-- `group_col` is the name of the column that will be used as grouping. For example, we might only want to month-specific locations when filling `NA`.
+- `group_col` is the name of the column that will be used as grouping. For example, we might only want to average month-specific locations when filling `NA`.
 - `radius` defines the radius (km) around the location with missing information to calculate the average. 

@@ -75,27 +75,32 @@ atributos_cms$subset(
     start_datetime    = format(x = as.Date("2015-02-01"), format = "%Y-%m-%dT00:00:00"),
     end_datetime      = format(x = as.Date("2015-04-30"), format = "%Y-%m-%dT00:00:00"),
     minimum_depth     = 0,
-    maximum_depth     = 200,
+    maximum_depth     = 100,
     output_directory  = "C:/Use/env_data/"
     )
 ```
 
-In this example, we are downloading daily data from the [GLORYS12V1 product](https://data.marine.copernicus.eu/product/GLOBAL_MULTIYEAR_PHY_001_030/description). The variable is potential temperature (`thetao`), the spatial extent is between -83 and -69 degrees longitude and between -19 and -3 degrees latitude, and the temporal extent is between 2015-02-01 and 2015-04-30. The data (`.nc` file) will be saved in the specified directory. We also specify the depth range (0-200 m), although that can be omitted in case we want to download all the depth layers.
+In this example, we are downloading daily data from the [GLORYS12V1 product](https://data.marine.copernicus.eu/product/GLOBAL_MULTIYEAR_PHY_001_030/description). The variable is potential temperature (`thetao`), the spatial extent is between -83 and -69 degrees longitude and between -19 and -3 degrees latitude, and the temporal extent is between 2015-02-01 and 2015-04-30. The data (`.nc` file) will be saved in the specified directory. We also specify the depth range (0-100 m), although that can be omitted in case we want to download all the depth layers.
 
 ## Download the data (multiple files){#sec-2-data-multiple}
 
 In case you want to download the data and save it in multiple files, you can adapt the previous example to work in a loop. We have done that in a wrapper function called `downloadCOPERNICUS` (you can find it [here](https://github.com/GiancarloMCorrea/extractOceanVariables/blob/main/code/copernicus/multiple/downloadCOPERNICUS.R)):
 
-```{r, eval=F}
-# Load function directly from Github:
-source("https://raw.githubusercontent.com/GiancarloMCorrea/extractOceanVariables/refs/heads/main/code/copernicus/multiple/downloadCOPERNICUS.R")
+First, let's load the function directly from Github and required library:
 
-# Download the data:
+```{r, eval=F}
+source("https://raw.githubusercontent.com/GiancarloMCorrea/extractOceanVariables/refs/heads/main/code/copernicus/multiple/downloadCOPERNICUS.R")
+library("lubridate")
+```
+
+Then, download the data:
+
+```{r, eval=F}
 downloadCOPERNICUS(
     xlim        = c(-83, -69),
     ylim        = c(-19, -3),
     datelim     = c("2015-02-01", "2015-04-30"),
-    depthlim    = c(0, 200),
+    depthlim    = c(0, 100),
     field       = "thetao",
     dataid      = "cmems_mod_glo_phy_my_0.083deg_P1D-m",
     savedir     = "C:/Use/env_data/"
@@ -104,8 +109,8 @@ downloadCOPERNICUS(
 
 This function will download the oceanographic data and save it in several `.nc` files. For the example above, three `.nc` files will be created:
 
-- `2015-02-01_2015-02-28.nc`
-- `2015-03-01_2015-03-31.nc`
-- `2015-04-01_2015-04-30.nc`
+- `2015-02-01.nc`
+- `2015-03-01.nc`
+- `2015-04-01.nc`
 
 As you may see, each `.nc` file will contain the data for a specific month. Note that the information contained in each netCDF file may have several time layers (e.g., daily temporal resolution) or a single time layer (e.g., monthly temporal resolution).
